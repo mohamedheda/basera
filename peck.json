@@ -1,0 +1,16 @@
+{
+    "preset": "laravel",
+    "ignore": {
+        "words": [
+            "php","enumable","laratrust","readonly",
+            "tooltip","orderable","otps","js",
+            "filesystems","summernote","favicon",
+            "subcopy","enctype","debugbar",
+            "unprocessable","dont"
+        ],
+        "paths": [
+            "App/Http/Helpers/Http.php",
+            "app/Http/Helpers/helpers.php"
+        ]
+    }
+}

@@ -1,0 +1,508 @@
+{
+	"info": {
+		"_postman_id": "b44f9665-6e96-45d0-811c-bbcd23154c5d",
+		"name": "Initial Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38239292",
+		"_collection_link": "https://crimson-sunset-566755.postman.co/workspace/ORMOTORES~814e10dc-8e4c-4aac-8933-90ce59e3dc9f/collection/38239292-b44f9665-6e96-45d0-811c-bbcd23154c5d?action=share&source=collection_link&creator=38239292"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "OTP",
+					"item": [
+						{
+							"name": "Verify OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "otp",
+											"value": "1111",
+											"type": "text"
+										},
+										{
+											"key": "otp_token",
+											"value": "McpBpaF4ctCzuSczhg0lCqH5XVbX9K",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}otp/verify",
+									"host": [
+										"{{url}}otp"
+									],
+									"path": [
+										"verify"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Resend Otp",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "ar",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}otp",
+									"host": [
+										"{{url}}otp"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Password",
+					"item": [
+						{
+							"name": "Forget Password",
+							"item": [
+								{
+									"name": "Change Password",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "current_password",
+													"value": "t@123123123",
+													"type": "text"
+												},
+												{
+													"key": "new_password",
+													"value": "A@123123123",
+													"type": "text"
+												},
+												{
+													"key": "new_password_confirmation",
+													"value": "A@123123123",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}password/update",
+											"host": [
+												"{{url}}password"
+											],
+											"path": [
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Forgot Password",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "ahmedramadan3333@outlook.com",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}password/forgot",
+											"host": [
+												"{{url}}password"
+											],
+											"path": [
+												"forgot"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Verify OTP",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "test@gmail.com",
+													"type": "text"
+												},
+												{
+													"key": "otp",
+													"value": "1111",
+													"type": "text"
+												},
+												{
+													"key": "otp_token",
+													"value": "kwXB8VfW7HY1s2EqJ1z4hDnbcin8bv",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}password/verify-otp",
+											"host": [
+												"{{url}}password"
+											],
+											"path": [
+												"verify-otp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "ahmedramadan3333@outlook.com",
+													"type": "text"
+												},
+												{
+													"key": "reset_token",
+													"value": "AfjdtOK5C0uWCm6q9sHcDnUWiZsuPC",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "A@@123123123",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}password/reset",
+											"host": [
+												"{{url}}password"
+											],
+											"path": [
+												"reset"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Email Change",
+					"item": [
+						{
+							"name": "Change Email Send OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "test2@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}email/change",
+									"host": [
+										"{{url}}email"
+									],
+									"path": [
+										"change"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "ahmedromio233@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "otp",
+											"value": "1111",
+											"type": "text"
+										},
+										{
+											"key": "otp_token",
+											"value": "zpIYHiQ8t1ctP6C6jxdyiEaPfnK45B",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}email/otp/verify",
+									"host": [
+										"{{url}}email"
+									],
+									"path": [
+										"otp",
+										"verify"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sign up",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "ar",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "t@123123123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/sign/up",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"sign",
+								"up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "ar",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "user3@elryad.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123123123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/sign/in",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"sign",
+								"in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}auth/sign/out",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"sign",
+								"out"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "test paginate",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test@gmail.com",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "t@123123123",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}tset",
+					"host": [
+						"{{url}}tset"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://intial-dashboard-12-.test/api/v1/website/",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3YxL3dlYnNpdGUvYXV0aC9zaWduL3VwIiwiaWF0IjoxNzMzODMxMjQwLCJleHAiOjE3MzM4MzQ4NDAsIm5iZiI6MTczMzgzMTI0MCwianRpIjoiV3NPOUp4ZGRrUDlRTlFLSyIsInN1YiI6IjEwIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.edQ5xUgCpBOKUQENO6lejJjAot-aUsFaGkZmSNu3eHw",
+			"type": "string"
+		}
+	]
+}
