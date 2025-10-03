@@ -22,8 +22,16 @@ class SignInRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required',
-            'password' => 'required',
+            'phone' => 'required|string',
+            'password' => 'required|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'phone.required' => 'رقم الجوال مطلوب',
+            'password.required' => 'كلمة المرور مطلوبة',
         ];
     }
 }

@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             InvestmentOpportunitySeeder::class,
             SubscriptionPackageSeeder::class,
+            RegistrationQuestionSeeder::class,
+            BankSeeder::class,
         ]);
     }
 }

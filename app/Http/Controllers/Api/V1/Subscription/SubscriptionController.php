@@ -3,27 +3,33 @@
 namespace App\Http\Controllers\Api\V1\Subscription;
 
 use App\Http\Controllers\Controller;
-use App\Models\SubscriptionPackage;
-use App\Models\UserSubscription;
+use App\Http\Requests\Api\V1\Subscription\SubscribeRequest;
+use App\Http\Resources\V1\Subscription\SubscriptionPackageResource;
+use App\Http\Resources\V1\Subscription\UserSubscriptionResource;
+use App\Http\Services\Api\V1\Subscription\SubscriptionService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 
 class SubscriptionController extends Controller
 {
+    protected SubscriptionService $subscriptionService;
+
+    public function __construct(SubscriptionService $subscriptionService)
+    {
+        $this->subscriptionService = $subscriptionService;
+    }
+
     /**
      * Get all subscription packages
      */
-    public function index()
+    public function index(): JsonResponse
     {
         try {
-            $packages = SubscriptionPackage::where('is_active', true)
-                ->orderBy('duration_months', 'asc')
-                ->get();
+            $packages = $this->subscriptionService->getAllPackages();
 
             return response()->json([
                 'success' => true,
-                'data' => $packages
+                'data' => SubscriptionPackageResource::collection($packages)
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -37,12 +43,10 @@ class SubscriptionController extends Controller
     /**
      * Get subscription package details
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         try {
-            $package = SubscriptionPackage::where('id', $id)
-                ->where('is_active', true)
-                ->first();
+            $package = $this->subscriptionService->getPackageById($id);
 
             if (!$package) {
                 return response()->json([
@@ -53,7 +57,7 @@ class SubscriptionController extends Controller
 
             return response()->json([
                 'success' => true,
-                'data' => $package
+                'data' => new SubscriptionPackageResource($package)
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -67,82 +71,42 @@ class SubscriptionController extends Controller
     /**
      * Subscribe user to a package
      */
-    public function subscribe(Request $request)
+    public function subscribe(SubscribeRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'package_id' => 'required|exists:subscription_packages,id',
-            'payment_method' => 'required|string|max:255',
-            'transaction_id' => 'nullable|string|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation errors',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
         try {
+            /** @var \App\Models\User $user */
             $user = $request->user();
-            $package = SubscriptionPackage::findOrFail($request->package_id);
-
-            // Check if user already has an active subscription
-            $activeSubscription = $user->activeSubscription;
-            if ($activeSubscription) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You already have an active subscription'
-                ], 400);
-            }
-
-            // Calculate subscription dates
-            $startDate = now();
-            $endDate = $startDate->copy()->addMonths($package->duration_months);
-
-            // Create subscription
-            $subscription = UserSubscription::create([
-                'user_id' => $user->id,
-                'subscription_package_id' => $package->id,
-                'start_date' => $startDate,
-                'end_date' => $endDate,
-                'amount_paid' => $package->price,
-                'status' => 'active',
-                'payment_method' => $request->payment_method,
-                'transaction_id' => $request->transaction_id,
-            ]);
-
-            $subscription->load('subscriptionPackage');
+            $subscription = $this->subscriptionService->createSubscription(
+                $user,
+                $request->validated()
+            );
 
             return response()->json([
                 'success' => true,
                 'message' => 'Subscription created successfully',
-                'data' => $subscription
+                'data' => new UserSubscriptionResource($subscription)
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Subscription failed',
-                'error' => $e->getMessage()
-            ], 500);
+                'message' => $e->getMessage()
+            ], 400);
         }
     }
 
     /**
      * Get user's subscriptions
      */
-    public function userSubscriptions(Request $request)
+    public function userSubscriptions(Request $request): JsonResponse
     {
         try {
+            /** @var \App\Models\User $user */
             $user = $request->user();
-            $subscriptions = $user->subscriptions()
-                ->with('subscriptionPackage')
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
+            $subscriptions = $this->subscriptionService->getUserSubscriptions($user);
 
             return response()->json([
                 'success' => true,
-                'data' => $subscriptions
+                'data' => UserSubscriptionResource::collection($subscriptions)
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -156,11 +120,12 @@ class SubscriptionController extends Controller
     /**
      * Get user's active subscription
      */
-    public function activeSubscription(Request $request)
+    public function activeSubscription(Request $request): JsonResponse
     {
         try {
+            /** @var \App\Models\User $user */
             $user = $request->user();
-            $activeSubscription = $user->activeSubscription;
+            $activeSubscription = $this->subscriptionService->getActiveSubscription($user);
 
             if (!$activeSubscription) {
                 return response()->json([
@@ -169,11 +134,9 @@ class SubscriptionController extends Controller
                 ], 404);
             }
 
-            $activeSubscription->load('subscriptionPackage');
-
             return response()->json([
                 'success' => true,
-                'data' => $activeSubscription
+                'data' => new UserSubscriptionResource($activeSubscription)
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -187,20 +150,12 @@ class SubscriptionController extends Controller
     /**
      * Cancel user's subscription
      */
-    public function cancelSubscription(Request $request)
+    public function cancelSubscription(Request $request): JsonResponse
     {
         try {
+            /** @var \App\Models\User $user */
             $user = $request->user();
-            $activeSubscription = $user->activeSubscription;
-
-            if (!$activeSubscription) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No active subscription found'
-                ], 404);
-            }
-
-            $activeSubscription->update(['status' => 'cancelled']);
+            $this->subscriptionService->cancelSubscription($user);
 
             return response()->json([
                 'success' => true,
@@ -209,28 +164,18 @@ class SubscriptionController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to cancel subscription',
-                'error' => $e->getMessage()
-            ], 500);
+                'message' => $e->getMessage()
+            ], 400);
         }
     }
 
     /**
      * Get subscription statistics
      */
-    public function statistics()
+    public function statistics(): JsonResponse
     {
         try {
-            $stats = [
-                'total_packages' => SubscriptionPackage::where('is_active', true)->count(),
-                'total_subscriptions' => UserSubscription::count(),
-                'active_subscriptions' => UserSubscription::where('status', 'active')
-                    ->where('end_date', '>=', now())
-                    ->count(),
-                'popular_packages' => SubscriptionPackage::where('is_active', true)
-                    ->where('is_popular', true)
-                    ->get(),
-            ];
+            $stats = $this->subscriptionService->getStatistics();
 
             return response()->json([
                 'success' => true,

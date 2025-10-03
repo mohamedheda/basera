@@ -19,7 +19,7 @@ class PasswordService
 
     public function forgot($request)
     {
-        $user = $this->repository->get('email', $request->email)?->first();
+        $user = $this->repository->get('phone', $request->phone)?->first();
         $user->update([
             'otp_verified' => false,
         ]);
@@ -35,7 +35,7 @@ class PasswordService
         try {
             DB::beginTransaction();
             $data = $request->validated();
-            $user = $this->repository->get('email', $request->email)?->first();
+            $user = $this->repository->get('phone', $request->phone)?->first();
             if (! $this->otpRepository->check($data['otp'], $data['otp_token'], $user)) {
                 return responseFail(message: __('messages.Wrong OTP code or expired'));
             }
@@ -44,7 +44,7 @@ class PasswordService
                 'otp_verified' => true,
             ]);
             $resetToken = Str::random(60);
-            Cache::put('reset_token_'.$request->email, $resetToken, now()->addMinutes(10)); // Valid for 10 minutes
+            Cache::put('reset_token_' . $request->phone, $resetToken, now()->addMinutes(10)); // Valid for 10 minutes
             DB::commit();
 
             return responseSuccess(data: ['reset_token' => $resetToken]);
@@ -62,12 +62,12 @@ class PasswordService
         try {
             DB::beginTransaction();
             $data = $request->validated();
-            $cachedToken = Cache::get('reset_token_'.$request->email);
+            $cachedToken = Cache::get('reset_token_' . $request->phone);
             if (! $cachedToken || $cachedToken != $request->reset_token) {
                 return responseFail(message: __('messages.Invalid or expired reset token.'));
             }
-            Cache::forget('reset_token_'.$request->email);
-            $user = $this->repository->get('email', $request->email)?->first();
+            Cache::forget('reset_token_' . $request->phone);
+            $user = $this->repository->get('phone', $request->phone)?->first();
             $this->repository->update($user->id, ['password' => $request->password]);
             DB::commit();
 

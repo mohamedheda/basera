@@ -32,7 +32,8 @@ class AppServiceProvider extends ServiceProvider
         Date::use(CarbonImmutable::class);
 
         Relation::enforceMorphMap([
-            // 'user' => User::class,
+            'user' => \App\Models\User::class,
+            'manager' => \App\Models\Manager::class,
         ]);
         Paginator::useBootstrapFive();
         Model::preventLazyLoading(false);

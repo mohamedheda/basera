@@ -68,7 +68,8 @@ class Handler extends ExceptionHandler
             } else {
                 return redirect()->route('auth.login');
             }
-        }if($e instanceof ModelNotFoundException){
+        }
+        if ($e instanceof ModelNotFoundException) {
             return responseFail(Http::NOT_FOUND, 'messages.Model not found');
         }
 

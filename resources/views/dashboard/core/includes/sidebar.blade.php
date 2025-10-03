@@ -29,7 +29,6 @@
                 <!-- End::slide__Main -->
                 {{-- one slide dashboard --}}
 
-
                 {{-- settings --}}
                 <li class="slide">
                     <a href="{{ route('settings.edit', auth()->user()->id) }}"
@@ -38,7 +37,6 @@
                         <span class="side-menu__label">@lang('dashboard.Settings')</span>
                     </a>
                 </li>
-
 
                 <!-- Start::slide -->
                 <li class="slide">
@@ -103,21 +101,50 @@
                 </li>
                 {{-- end nested slide slide users --}}
 
+                {{-- Registration Questions --}}
+                <li class="slide">
+                    <a href="{{ route('registration-questions.index') }}"
+                        class="side-menu__item {{ request()->routeIs('registration-questions.*') ? 'active' : '' }}">
+                        <i class="ti ti-help side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.Registration Questions')</span>
+                    </a>
+                </li>
 
+                {{-- Banks --}}
+                <li class="slide">
+                    <a href="{{ route('banks.index') }}"
+                        class="side-menu__item {{ request()->routeIs('banks.*') ? 'active' : '' }}">
+                        <i class="ti ti-building-bank side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.Banks')</span>
+                    </a>
+                </li>
 
+                {{-- Subscription Packages --}}
+                <li class="slide">
+                    <a href="{{ route('subscription-packages.index') }}"
+                        class="side-menu__item {{ request()->routeIs('subscription-packages.*') ? 'active' : '' }}">
+                        <i class="ti ti-package side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.Subscription Packages')</span>
+                    </a>
+                </li>
 
+                {{-- User Subscriptions --}}
+                <li class="slide">
+                    <a href="{{ route('subscriptions.index') }}" 
+                       class="side-menu__item {{ request()->routeIs('subscriptions.*') ? 'active' : '' }}">
+                        <i class="ti ti-credit-card side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.User Subscriptions')</span>
+                    </a>
+                </li>
 
-
-
-
-
-
-
-
-
-
-
-
+                {{-- Investment Opportunities --}}
+                <li class="slide">
+                    <a href="{{ route('investment-opportunities.index') }}" 
+                       class="side-menu__item {{ request()->routeIs('investment-opportunities.*') ? 'active' : '' }}">
+                        <i class="ti ti-chart-line side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.Investment Opportunities')</span>
+                    </a>
+                </li>
 
                 <!-- Start::slide -->
                 <li class="slide has-sub">

@@ -24,16 +24,16 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'phone',
+        'national_id',
         'otp_verified',
         'is_active',
-        'id_number',
         'date_of_birth',
         'marital_status',
         'family_members_count',
         'education_level',
         'annual_income',
         'total_savings',
-        'bank_name',
+        'bank_id',
         'profile_completed',
     ];
 
@@ -64,6 +64,11 @@ class User extends Authenticatable implements JWTSubject
             'otp_verified' => 'boolean',
             'is_active' => 'boolean',
         ];
+    }
+
+    public function username()
+    {
+        return 'phone';
     }
 
     public function getJWTIdentifier()
@@ -105,5 +110,15 @@ class User extends Authenticatable implements JWTSubject
     public function riskAssessment()
     {
         return $this->hasOne(RiskAssessment::class);
+    }
+
+    public function registrationAnswers()
+    {
+        return $this->hasMany(UserRegistrationAnswer::class);
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
     }
 }
