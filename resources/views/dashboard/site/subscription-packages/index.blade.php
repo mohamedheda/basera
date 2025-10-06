@@ -25,7 +25,6 @@
                             <th>@lang('dashboard.Package Name')</th>
                             <th>@lang('dashboard.Duration')</th>
                             <th>@lang('dashboard.Price')</th>
-                            <th>@lang('dashboard.Is Popular')</th>
                             <th>@lang('dashboard.Status')</th>
                             <th>@lang('dashboard.Operations')</th>
                         </tr>
@@ -40,13 +39,6 @@
                                     <span class="badge bg-info">{{ $package->duration_name }}</span>
                                 </td>
                                 <td>{{ $package->formatted_price }}</td>
-                                <td>
-                                    @if ($package->is_popular)
-                                        <span class="badge bg-success">@lang('dashboard.Popular')</span>
-                                    @else
-                                        <span class="badge bg-secondary">@lang('dashboard.Not Popular')</span>
-                                    @endif
-                                </td>
                                 <td>
                                     @if ($package->is_active)
                                         <span class="badge bg-success">@lang('dashboard.Active')</span>
@@ -66,17 +58,12 @@
                                             <i class="ti ti-toggle-left"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-sm btn-success toggle-popular"
-                                            data-id="{{ $package->id }}">
-                                            <i class="ti ti-star"></i>
-                                        </button>
-
                                         <x-buttons.delete-button :route="route('subscription-packages.destroy', $package->id)" :itemId="$package->id" />
                                     </div>
                                 </td>
                             </tr>
                         @empty
-                            @include('dashboard.core.includes.no-entries', ['columns' => 7])
+                            @include('dashboard.core.includes.no-entries', ['columns' => 6])
                         @endforelse
                     </tbody>
                 </table>
@@ -99,26 +86,18 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        if (response.success) {
+                        if (response.status == 200 || response.data === true) {
+                            // Reload page to show updated status
                             location.reload();
+                        } else {
+                            alert(response.message || 'فشل التحديث');
+                            button.prop('disabled', false);
                         }
-                    }
-                });
-            });
-
-            $(document).on('click', '.toggle-popular', function() {
-                var packageId = $(this).data('id');
-
-                $.ajax({
-                    url: "{{ url('subscription-packages') }}/" + packageId + "/toggle-popular",
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
                     },
-                    success: function(response) {
-                        if (response.success) {
-                            location.reload();
-                        }
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.responseJSON?.message || 'حدث خطأ';
+                        alert(errorMessage);
+                        button.prop('disabled', false);
                     }
                 });
             });

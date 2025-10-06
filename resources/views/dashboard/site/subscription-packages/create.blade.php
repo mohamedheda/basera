@@ -61,29 +61,6 @@
                     </div>
 
                     <div class="col-md-12">
-                        <label for="features" class="form-label">@lang('dashboard.Features')</label>
-                        <div id="features-container">
-                            <div class="input-group mb-2">
-                                <input type="text" name="features[]" class="form-control"
-                                    placeholder="{{ __('dashboard.Enter feature') }}">
-                                <button type="button" class="btn btn-success btn-add-feature">
-                                    <i class="ti ti-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" name="is_popular" id="is_popular"
-                                value="1">
-                            <label class="form-check-label" for="is_popular">
-                                @lang('dashboard.Mark as Popular Package?')
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="is_active" id="is_active" value="1"
                                 checked>
@@ -97,23 +74,4 @@
         </x-cards.page-card>
     </div>
 
-    @push('scripts')
-        <script>
-            $(document).on('click', '.btn-add-feature', function() {
-                var newFeature = `
-                <div class="input-group mb-2">
-                    <input type="text" name="features[]" class="form-control" placeholder="@lang('dashboard.Enter feature')">
-                    <button type="button" class="btn btn-danger btn-remove-feature">
-                        <i class="ti ti-minus"></i>
-                    </button>
-                </div>
-            `;
-                $('#features-container').append(newFeature);
-            });
-
-            $(document).on('click', '.btn-remove-feature', function() {
-                $(this).closest('.input-group').remove();
-            });
-        </script>
-    @endpush
 @endsection

@@ -80,9 +80,18 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        if (response.success) {
+                        if (response.status == 200 || response.data === true) {
+                            // Reload page to show updated status
                             location.reload();
+                        } else {
+                            alert(response.message || 'فشل التحديث');
+                            button.prop('disabled', false);
                         }
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.responseJSON?.message || 'حدث خطأ';
+                        alert(errorMessage);
+                        button.prop('disabled', false);
                     }
                 });
             });

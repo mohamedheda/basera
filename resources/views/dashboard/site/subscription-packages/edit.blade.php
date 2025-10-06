@@ -66,44 +66,6 @@
                     </div>
 
                     <div class="col-md-12">
-                        <label for="features" class="form-label">@lang('dashboard.Features')</label>
-                        <div id="features-container">
-                            @if ($package->features && count($package->features) > 0)
-                                @foreach ($package->features as $feature)
-                                    <div class="input-group mb-2">
-                                        <input type="text" name="features[]" class="form-control"
-                                            placeholder="{{ __('dashboard.Enter feature') }}" value="{{ $feature }}">
-                                        <button type="button" class="btn btn-danger btn-remove-feature">
-                                            <i class="ti ti-minus"></i>
-                                        </button>
-                                    </div>
-                                @endforeach
-                            @else
-                                <div class="input-group mb-2">
-                                    <input type="text" name="features[]" class="form-control"
-                                        placeholder="{{ __('dashboard.Enter feature') }}">
-                                    <button type="button" class="btn btn-success btn-add-feature">
-                                        <i class="ti ti-plus"></i>
-                                    </button>
-                                </div>
-                            @endif
-                            <button type="button" class="btn btn-sm btn-success btn-add-feature mt-2">
-                                <i class="ti ti-plus"></i> @lang('dashboard.Add Feature')
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" name="is_popular" id="is_popular" value="1"
-                                {{ $package->is_popular ? 'checked' : '' }}>
-                            <label class="form-check-label" for="is_popular">
-                                @lang('dashboard.Mark as Popular Package?')
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="is_active" id="is_active" value="1"
                                 {{ $package->is_active ? 'checked' : '' }}>
@@ -117,23 +79,4 @@
         </x-cards.page-card>
     </div>
 
-    @push('scripts')
-        <script>
-            $(document).on('click', '.btn-add-feature', function() {
-                var newFeature = `
-                <div class="input-group mb-2">
-                    <input type="text" name="features[]" class="form-control" placeholder="@lang('dashboard.Enter feature')">
-                    <button type="button" class="btn btn-danger btn-remove-feature">
-                        <i class="ti ti-minus"></i>
-                    </button>
-                </div>
-            `;
-                $('#features-container').append(newFeature);
-            });
-
-            $(document).on('click', '.btn-remove-feature', function() {
-                $(this).closest('.input-group').remove();
-            });
-        </script>
-    @endpush
 @endsection

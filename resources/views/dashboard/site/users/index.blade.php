@@ -28,6 +28,8 @@
                             <th>@lang('dashboard.Name')</th>
                             <th>@lang('dashboard.Email')</th>
                             <th>@lang('dashboard.Phone')</th>
+                            <th>@lang('dashboard.National ID')</th>
+                            <th>@lang('dashboard.Status')</th>
                             <th>@lang('dashboard.Operations')</th>
                         </tr>
                     </thead>
@@ -36,8 +38,17 @@
                             <tr id="row-{{ $user->id }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->email ?? '-' }}</td>
                                 <td>{{ $user->phone }}</td>
+                                <td>{{ $user->national_id ?? '-' }}</td>
+                                <td>
+                                    @if ($user->is_active)
+                                        <span class="badge bg-success">@lang('dashboard.Active')</span>
+                                    @else
+                                        <span class="badge bg-danger">@lang('dashboard.Inactive')</span>
+                                    @endif
+                                </td>
+
                                 <td>
                                     <div class="hstack gap-2 fs-15">
                                         <x-buttons.show-button :route="route('users.show', $user->id)" />
@@ -47,7 +58,7 @@
                                 </td>
                             </tr>
                         @empty
-                            @include('dashboard.core.includes.no-entries', ['columns' => 5])
+                            @include('dashboard.core.includes.no-entries', ['columns' => 8])
                         @endforelse
                     </tbody>
                 </table>

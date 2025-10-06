@@ -25,7 +25,6 @@
             </div>
             <ul class="main-menu">
                 <!-- Start::slide__Main -->
-                <li class="slide__category"><span class="category-name">Main</span></li>
                 <!-- End::slide__Main -->
                 {{-- one slide dashboard --}}
 
@@ -47,60 +46,6 @@
                 </li>
 
                 {{-- end one slide dashboard --}}
-
-                {{-- nested slide slide users --}}
-                <li
-                    class="slide has-sub {{ in_array(request()->route()->getName(), [
-                        'users.index',
-                        'users.create',
-                        'users.edit',
-                        'users.show',
-                        'roles.index',
-                        'roles.create',
-                        'roles.edit',
-                        'roles.mangers',
-                        'managers.edit',
-                        'managers.create',
-                    ])
-                        ? 'open active'
-                        : '' }}">
-                    <a href="javascript:void(0);" class="side-menu__item ">
-                        <i class="bx bx-home side-menu__icon"></i>
-                        <span class="side-menu__label">@lang('dashboard.Home')<span
-                                class="badge bg-warning-transparent ms-2">12</span></span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                    <ul class="slide-menu child1">
-                        <li class="slide">
-                            <a href="{{ route('users.index') }}"
-                                class="side-menu__item {{ in_array(request()->route()->getName(), ['users.index', 'users.create', 'users.edit', 'users.show'])
-                                    ? 'active'
-                                    : '' }}">
-                                @lang('dashboard.users')
-                            </a>
-                        </li>
-
-                        @permission('roles-read')
-                            <li class="slide">
-                                <a href="{{ route('roles.index') }}"
-                                    class="side-menu__item {{ in_array(request()->route()->getName(), [
-                                        'roles.index',
-                                        'roles.create',
-                                        'roles.edit',
-                                        'roles.mangers',
-                                        'managers.edit',
-                                        'managers.create',
-                                    ])
-                                        ? 'active'
-                                        : '' }}">
-                                    @lang('dashboard.roles')
-                                </a>
-                            </li>
-                        @endpermission
-                    </ul>
-                </li>
-                {{-- end nested slide slide users --}}
-
                 {{-- Registration Questions --}}
                 <li class="slide">
                     <a href="{{ route('registration-questions.index') }}"
@@ -118,7 +63,15 @@
                         <span class="side-menu__label">@lang('dashboard.Banks')</span>
                     </a>
                 </li>
+                {{-- end nested slide slide users --}}
 
+                <li class="slide">
+                    <a href="{{ route('users.index') }}"
+                        class="side-menu__item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                        <i class="ti ti-user side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.users')</span>
+                    </a>
+                </li>
                 {{-- Subscription Packages --}}
                 <li class="slide">
                     <a href="{{ route('subscription-packages.index') }}"
@@ -130,8 +83,8 @@
 
                 {{-- User Subscriptions --}}
                 <li class="slide">
-                    <a href="{{ route('subscriptions.index') }}" 
-                       class="side-menu__item {{ request()->routeIs('subscriptions.*') ? 'active' : '' }}">
+                    <a href="{{ route('subscriptions.index') }}"
+                        class="side-menu__item {{ request()->routeIs('subscriptions.*') ? 'active' : '' }}">
                         <i class="ti ti-credit-card side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.User Subscriptions')</span>
                     </a>
@@ -139,51 +92,12 @@
 
                 {{-- Investment Opportunities --}}
                 <li class="slide">
-                    <a href="{{ route('investment-opportunities.index') }}" 
-                       class="side-menu__item {{ request()->routeIs('investment-opportunities.*') ? 'active' : '' }}">
+                    <a href="{{ route('investment-opportunities.index') }}"
+                        class="side-menu__item {{ request()->routeIs('investment-opportunities.*') ? 'active' : '' }}">
                         <i class="ti ti-chart-line side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.Investment Opportunities')</span>
                     </a>
                 </li>
-
-                <!-- Start::slide -->
-                <li class="slide has-sub">
-                    <a href="javascript:void(0);" class="side-menu__item">
-                        <i class="bx bx-layer side-menu__icon"></i>
-                        <span class="side-menu__label">Nested Menu</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                    <ul class="slide-menu child1">
-                        <li class="slide side-menu__label1">
-                            <a href="javascript:void(0)">Nested Menu</a>
-                        </li>
-                        <li class="slide">
-                            <a href="javascript:void(0);" class="side-menu__item">Nested-1</a>
-                        </li>
-                        <li class="slide has-sub">
-                            <a href="javascript:void(0);" class="side-menu__item">Nested-2
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide">
-                                    <a href="javascript:void(0);" class="side-menu__item">Nested-2-1</a>
-                                </li>
-                                <li class="slide has-sub">
-                                    <a href="javascript:void(0);" class="side-menu__item">Nested-2-2
-                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                                    <ul class="slide-menu child3">
-                                        <li class="slide">
-                                            <a href="javascript:void(0);" class="side-menu__item">Nested-2-2-1</a>
-                                        </li>
-                                        <li class="slide">
-                                            <a href="javascript:void(0);" class="side-menu__item">Nested-2-2-2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <!-- End::slide -->
 
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"

@@ -67,20 +67,25 @@
                     <div class="col-md-4">
                         <x-input.input-field name="current_price" label="{{ __('dashboard.Current Price') }}"
                             placeholder="{{ __('dashboard.Enter current price') }}" required="true" type="number"
-                            step="0.01" min="0" />
+                            step="0.01" min="0" id="current_price" />
                     </div>
 
                     <div class="col-md-4">
                         <x-input.input-field name="entry_price" label="{{ __('dashboard.Entry Price') }}"
                             placeholder="{{ __('dashboard.Enter entry price') }}" required="true" type="number"
-                            step="0.01" min="0" />
+                            step="0.01" min="0" id="entry_price" />
                     </div>
 
                     <div class="col-md-4">
-                        <x-input.input-field name="expected_return_percentage"
-                            label="{{ __('dashboard.Expected Return') }}"
-                            placeholder="{{ __('dashboard.Enter expected return %') }}" required="true" type="number"
-                            step="0.01" min="0" max="100" />
+                        <label for="expected_return_percentage" class="form-label">
+                            @lang('dashboard.Expected Return') (%)
+                            <span class="text-muted small">(@lang('dashboard.Auto Calculated'))</span>
+                        </label>
+                        <input type="number" name="expected_return_percentage" id="expected_return_percentage"
+                            class="form-control" step="0.01" readonly placeholder="@lang('dashboard.Will be calculated automatically')">
+                        @error('expected_return_percentage')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="col-md-12">
@@ -103,8 +108,8 @@
 
                     <div class="col-md-6">
                         <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" name="is_halal" id="is_halal" value="1"
-                                checked>
+                            <input class="form-check-input" type="checkbox" name="is_halal" id="is_halal"
+                                value="1" checked>
                             <label class="form-check-label" for="is_halal">
                                 @lang('dashboard.Is Halal?')
                             </label>
@@ -124,4 +129,27 @@
             </x-form.form-component>
         </x-cards.page-card>
     </div>
+
+    @push('scripts')
+        <script>
+            function calculateExpectedReturn() {
+                var currentPrice = parseFloat($('#current_price').val()) || 0;
+                var entryPrice = parseFloat($('#entry_price').val()) || 0;
+
+                if (entryPrice > 0) {
+                    // حساب النسبة: ((السعر الحالي - سعر الدخول) / سعر الدخول) * 100
+                    var returnPercentage = ((currentPrice - entryPrice) / entryPrice) * 100;
+                    $('#expected_return_percentage').val(returnPercentage.toFixed(2));
+                } else {
+                    $('#expected_return_percentage').val('');
+                }
+            }
+
+            $(document).ready(function() {
+                $('#current_price, #entry_price').on('input change', function() {
+                    calculateExpectedReturn();
+                });
+            });
+        </script>
+    @endpush
 @endsection

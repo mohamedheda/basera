@@ -50,6 +50,7 @@
     @if (app()->getLocale() == 'ar')
         <!-- Override RTL theme style -->
         <link rel="stylesheet" href="{{ asset('css/adminlte-rtl.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/styles_ar.min.css') }}">
     @endif
 
     <!-- Google Font: Source Sans Pro -->

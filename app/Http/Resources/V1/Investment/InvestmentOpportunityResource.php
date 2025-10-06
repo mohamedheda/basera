@@ -22,6 +22,7 @@ class InvestmentOpportunityResource extends JsonResource
             'entry_price' => $this->entry_price,
             'expected_return_percentage' => $this->expected_return_percentage,
             'market' => $this->market,
+            'is_halal' => $this->is_halal,
             'market_name' => $this->market_name,
             'sector' => $this->sector,
             'sector_name' => $this->sector_name,

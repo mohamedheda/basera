@@ -79,21 +79,26 @@
                     <div class="col-md-4">
                         <x-input.input-field name="current_price" label="{{ __('dashboard.Current Price') }}"
                             placeholder="{{ __('dashboard.Enter current price') }}" required="true" type="number"
-                            step="0.01" min="0" value="{{ $opportunity->current_price }}" />
+                            step="0.01" min="0" value="{{ $opportunity->current_price }}" id="current_price" />
                     </div>
 
                     <div class="col-md-4">
                         <x-input.input-field name="entry_price" label="{{ __('dashboard.Entry Price') }}"
                             placeholder="{{ __('dashboard.Enter entry price') }}" required="true" type="number"
-                            step="0.01" min="0" value="{{ $opportunity->entry_price }}" />
+                            step="0.01" min="0" value="{{ $opportunity->entry_price }}" id="entry_price" />
                     </div>
 
                     <div class="col-md-4">
-                        <x-input.input-field name="expected_return_percentage"
-                            label="{{ __('dashboard.Expected Return') }}"
-                            placeholder="{{ __('dashboard.Enter expected return %') }}" required="true" type="number"
-                            step="0.01" min="0" max="100"
-                            value="{{ $opportunity->expected_return_percentage }}" />
+                        <label for="expected_return_percentage" class="form-label">
+                            @lang('dashboard.Expected Return') (%)
+                            <span class="text-muted small">(@lang('dashboard.Auto Calculated'))</span>
+                        </label>
+                        <input type="number" name="expected_return_percentage" id="expected_return_percentage"
+                            class="form-control" step="0.01" readonly
+                            value="{{ $opportunity->expected_return_percentage }}" placeholder="@lang('dashboard.Will be calculated automatically')">
+                        @error('expected_return_percentage')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="col-md-12">
@@ -143,4 +148,31 @@
             </x-form.form-component>
         </x-cards.page-card>
     </div>
+
+    @push('scripts')
+        <script>
+            function calculateExpectedReturn() {
+                var currentPrice = parseFloat($('#current_price').val()) || 0;
+                var entryPrice = parseFloat($('#entry_price').val()) || 0;
+
+                if (entryPrice > 0) {
+                    // حساب النسبة: ((السعر الحالي - سعر الدخول) / سعر الدخول) * 100
+                    var returnPercentage = ((currentPrice - entryPrice) / entryPrice) * 100;
+                    $('#expected_return_percentage').val(returnPercentage.toFixed(2));
+                } else {
+                    $('#expected_return_percentage').val('');
+                }
+            }
+
+            $(document).ready(function() {
+                // Calculate on page load
+                calculateExpectedReturn();
+
+                // Calculate on input change
+                $('#current_price, #entry_price').on('input change', function() {
+                    calculateExpectedReturn();
+                });
+            });
+        </script>
+    @endpush
 @endsection
