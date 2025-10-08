@@ -130,9 +130,8 @@ if (! function_exists('delete_model')) {
 if (! function_exists('fileFullPath')) {
     function fileFullPath(string $path): string
     {
-        return asset('storage/'.$path);
+        return asset('storage/' . $path);
     }
-
 }
 if (! function_exists('formatDate')) {
     function formatDate($date)

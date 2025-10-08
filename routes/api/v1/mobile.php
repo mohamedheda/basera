@@ -36,14 +36,14 @@ Route::group(['prefix' => 'otp', 'controller' => OtpController::class], function
 Route::group(['prefix' => 'password', 'controller' => PasswordController::class], function () {
     Route::post('forgot', 'forgot');
     Route::post('reset', 'reset');
-    Route::post('change', 'change')->middleware('auth:api');
+    Route::post('change', 'updatePassword')->middleware('auth:api');
 });
 
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:api', 'controller' => UserController::class], function () {
     Route::post('register', 'register');
     Route::get('profile', 'profile');
-    Route::put('profile', 'updateProfile');
+    Route::post('profile', 'updateProfile');
     Route::post('change-password', 'changePassword');
     Route::get('dashboard', 'dashboard');
 });

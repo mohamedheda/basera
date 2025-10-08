@@ -13,11 +13,24 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             User::create([
                 'name' => "User $i",
                 'email' => "user$i@elryad.com",
-                'password' => Hash::make('elryad1256!#'),
+                'phone' => "+96650000000" . $i,
+                'password' => Hash::make('123123123'),
+                'otp_verified' => true,
+                'is_active' => true,
+                'date_of_birth' => now()->subYears(20)->format('Y-m-d'),
+                'marital_status' => 'married',
+                'family_members_count' => 1,
+                'education_level' => 'bachelor',
+                'annual_income' => 10000,
+                'total_savings' => 10000,
+                'bank_id' => 1,
+                'national_id' => "1234567890" . $i,
+                'created_at' => now()->subDays($i),
+                'updated_at' => now()->subDays($i),
             ]);
         }
     }

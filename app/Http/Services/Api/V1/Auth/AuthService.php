@@ -66,7 +66,7 @@ abstract class AuthService extends PlatformService
             $user = auth('api')->user();
 
             if (!$user->otp_verified) {
-                return $this->otpService->generate($user);
+                $this->otpService->generate($user);
                 // return responseFail(Http::UNAUTHORIZED, __('messages.OTP_Not_Verified_please_verify_your_account'));
             }
             return responseSuccess(Http::CREATED, __('messages.Successfully authenticated'), new UserResource($user, true));

@@ -23,12 +23,6 @@ class SubscriptionPackageSeeder extends Seeder
                 'currency' => 'SAR',
                 'is_popular' => false,
                 'is_active' => true,
-                'features' => [
-                    'وصول إلى جميع الفرص الاستثمارية',
-                    'توصيات شخصية',
-                    'دعم فني 24/7',
-                    'تقارير دورية'
-                ],
             ],
             [
                 'name' => 'باقة نصف سنوية',
@@ -39,14 +33,6 @@ class SubscriptionPackageSeeder extends Seeder
                 'currency' => 'SAR',
                 'is_popular' => true,
                 'is_active' => true,
-                'features' => [
-                    'وصول إلى جميع الفرص الاستثمارية',
-                    'توصيات شخصية متقدمة',
-                    'دعم فني 24/7',
-                    'تقارير دورية مفصلة',
-                    'استشارات استثمارية مجانية',
-                    'توفير 16% مقارنة بالاشتراك الشهري'
-                ],
             ],
             [
                 'name' => 'باقة سنوية',
@@ -57,16 +43,6 @@ class SubscriptionPackageSeeder extends Seeder
                 'currency' => 'SAR',
                 'is_popular' => false,
                 'is_active' => true,
-                'features' => [
-                    'وصول إلى جميع الفرص الاستثمارية',
-                    'توصيات شخصية متقدمة',
-                    'دعم فني 24/7',
-                    'تقارير دورية مفصلة',
-                    'استشارات استثمارية مجانية',
-                    'تحليل السوق اليومي',
-                    'ندوات استثمارية حصرية',
-                    'توفير 20% مقارنة بالاشتراك الشهري'
-                ],
             ],
         ];
 

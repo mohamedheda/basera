@@ -8,6 +8,7 @@ use App\Http\Resources\V1\Investment\InvestmentOpportunityResource;
 use App\Http\Services\Api\V1\Investment\InvestmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use function App\Http\Helpers\paginatedJsonResponse;
 
 class InvestmentController extends Controller
 {
@@ -27,10 +28,8 @@ class InvestmentController extends Controller
             $filters = $request->only(['market', 'sector', 'risk_level', 'is_halal']);
             $opportunities = $this->investmentService->getAllOpportunities($filters);
 
-            return response()->json([
-                'success' => true,
-                'data' => InvestmentOpportunityResource::collection($opportunities)
-            ]);
+            //return paginated data
+            return paginatedJsonResponse(message: 'Investment opportunities fetched successfully', data: $opportunities);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

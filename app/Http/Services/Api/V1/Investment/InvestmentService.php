@@ -32,7 +32,7 @@ class InvestmentService
             $query->where('is_halal', $filters['is_halal']);
         }
 
-        return $query->orderBy('created_at', 'desc')->get();
+        return $query->orderBy('created_at', 'desc')->paginate(10);
     }
 
     /**
