@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Investment\SearchInvestmentRequest;
 use App\Http\Resources\V1\Investment\InvestmentOpportunityResource;
 use App\Http\Services\Api\V1\Investment\InvestmentService;
+use App\Http\Helpers\Http;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+
 use function App\Http\Helpers\paginatedJsonResponse;
+use function App\Http\Helpers\responseFail;
+use function App\Http\Helpers\responseSuccess;
 
 class InvestmentController extends Controller
 {
@@ -28,14 +32,18 @@ class InvestmentController extends Controller
             $filters = $request->only(['market', 'sector', 'risk_level', 'is_halal']);
             $opportunities = $this->investmentService->getAllOpportunities($filters);
 
-            //return paginated data
-            return paginatedJsonResponse(message: 'Investment opportunities fetched successfully', data: $opportunities);
+            return paginatedJsonResponse(
+                paginator: $opportunities->setCollection(
+                    $opportunities->getCollection()->map(fn($item) => new InvestmentOpportunityResource($item))
+                ),
+                message: __('messages.Investment opportunities fetched successfully')
+            );
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to fetch investment opportunities',
-                'error' => $e->getMessage()
-            ], 500);
+            return responseFail(
+                status: Http::INTERNAL_SERVER_ERROR,
+                message: __('messages.Failed to fetch investment opportunities'),
+                data: $e->getMessage()
+            );
         }
     }
 

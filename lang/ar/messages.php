@@ -70,4 +70,7 @@ return [
     'Cannot delete package with active subscriptions' => 'لا يمكن حذف الباقة التي تحتوي على اشتراكات نشطة.',
     'Invalid status' => 'حالة غير صالحة.',
     'Something went wrong' => 'حدث خطأ ما.',
+    
+    'Investment opportunities fetched successfully' => 'تم جلب فرص الاستثمار بنجاح.',
+    'Failed to fetch investment opportunities' => 'فشل في جلب فرص الاستثمار.',
 ];

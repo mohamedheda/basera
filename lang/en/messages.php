@@ -70,4 +70,7 @@ return [
     'Cannot delete package with active subscriptions' => 'Cannot delete package with active subscriptions.',
     'Invalid status' => 'Invalid status.',
     'Something went wrong' => 'Something went wrong.',
+    
+    'Investment opportunities fetched successfully' => 'Investment opportunities fetched successfully.',
+    'Failed to fetch investment opportunities' => 'Failed to fetch investment opportunities.',
 ];

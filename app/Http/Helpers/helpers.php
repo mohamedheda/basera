@@ -8,28 +8,24 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 if (! function_exists('paginatedJsonResponse')) {
-    /**
-     * Paginated Json Response
-     *
-     * Used To Return Paginated Json Data
-     */
-    function paginatedJsonResponse(?string $message = null, ?array $data = null, ?int $code = null, ?string $paginatedDataKey = null): JsonResponse
+    function paginatedJsonResponse($paginator, ?string $message = null, ?int $code = null): JsonResponse
     {
         $code ??= Response::HTTP_OK;
-        $paginatedDataKey ??= 'items';
 
         return response()->json([
-            'code' => $code,
-            'message' => $message ?? 'Data with paginated',
-            'items' => $data[$paginatedDataKey],
+            'success' => true,
+            'message' => $message ?? __('messages.Data fetched successfully'),
+            'data' => $paginator->items(),
             'pagination' => [
-                'count' => (int) $data[$paginatedDataKey]->count(),
-                'total' => (int) $data[$paginatedDataKey]->total(),
-                'last_page' => (int) $data[$paginatedDataKey]->lastPage(),
-                'per_page' => (int) $data[$paginatedDataKey]->perPage(),
-                'current_page' => (int) $data[$paginatedDataKey]->currentPage(),
-                'get_options' => $data[$paginatedDataKey]->getOptions(),
-                'next_page_url' => $data[$paginatedDataKey]->nextPageUrl(),
+                'count' => $paginator->count(),
+                'total' => $paginator->total(),
+                'per_page' => $paginator->perPage(),
+                'current_page' => $paginator->currentPage(),
+                'last_page' => $paginator->lastPage(),
+                'from' => $paginator->firstItem(),
+                'to' => $paginator->lastItem(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'prev_page_url' => $paginator->previousPageUrl(),
             ],
         ], $code);
     }
