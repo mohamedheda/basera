@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             LaratrustSeeder::class,
             ManagerSeeder::class,
+            BankSeeder::class,
             UserSeeder::class,
             InvestmentOpportunitySeeder::class,
             SubscriptionPackageSeeder::class,
             RegistrationQuestionSeeder::class,
-            BankSeeder::class,
         ]);
     }
 }
