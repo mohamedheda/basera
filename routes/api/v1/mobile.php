@@ -33,9 +33,10 @@ Route::group(['prefix' => 'otp', 'controller' => OtpController::class], function
     Route::post('verify', 'verify');
 });
 
+Route::post('forgot', [PasswordController::class, 'forgot']);
 
 Route::group(['prefix' => 'password', 'controller' => PasswordController::class], function () {
-    Route::post('forgot', 'forgot');
+    Route::post('verify-otp', 'verifyOtp');
     Route::post('reset', 'reset');
     Route::post('change', 'updatePassword')->middleware('auth:api');
 });
