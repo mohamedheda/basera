@@ -33,7 +33,7 @@ Route::group(['prefix' => 'otp', 'controller' => OtpController::class], function
     Route::post('verify', 'verify');
 });
 
-Route::post('forgot', [PasswordController::class, 'forgot']);
+Route::post('auth/forgot', [PasswordController::class, 'forgot']);
 
 Route::group(['prefix' => 'password', 'controller' => PasswordController::class], function () {
     Route::post('verify-otp', 'verifyOtp');
