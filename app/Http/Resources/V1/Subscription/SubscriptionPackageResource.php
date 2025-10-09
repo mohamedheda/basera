@@ -14,6 +14,10 @@ class SubscriptionPackageResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $is_subscribed = false;
+        if (auth('api')->user()) {
+            $is_subscribed = auth('api')->user()->activeSubscription->subscription_package_id == $this->id;
+        }
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -26,6 +30,7 @@ class SubscriptionPackageResource extends JsonResource
             'currency' => $this->currency,
             'is_popular' => $this->is_popular,
             'features' => $this->features,
+            'is_subscribed' => $is_subscribed,
         ];
     }
 }
