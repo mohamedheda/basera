@@ -23,11 +23,12 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable();
 
             $table->enum('marital_status', MaritalStatus::values())->nullable();
-            $table->integer('family_members_count')->default(1);
+            $table->integer('family_members_count')->nullable();
             $table->enum('education_level', EducationLevel::values())->nullable();
             $table->decimal('annual_income', 15, 2)->nullable();
             $table->decimal('total_savings', 15, 2)->nullable();
             $table->string('bank_name')->nullable();
+
 
             $table->boolean('is_active')->default(1);
             $table->boolean('otp_verified')->default(0);

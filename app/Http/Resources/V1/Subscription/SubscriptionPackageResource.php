@@ -16,7 +16,7 @@ class SubscriptionPackageResource extends JsonResource
     {
         $is_subscribed = false;
         if (auth('api')->user()) {
-            $is_subscribed = auth('api')->user()->activeSubscription->subscription_package_id == $this->id;
+            $is_subscribed = auth('api')->user()->activeSubscription?->subscription_package_id == $this->id;
         }
         return [
             'id' => $this->id,

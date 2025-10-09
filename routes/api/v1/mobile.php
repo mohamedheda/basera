@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
 use App\Http\Controllers\Api\V1\Risk\RiskAssessmentController;
 use App\Http\Controllers\Api\RegistrationQuestionController;
 use App\Http\Controllers\Api\V1\BankController;
+use App\Http\Controllers\Api\V1\Social\SocialController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -39,6 +40,18 @@ Route::group(['prefix' => 'password', 'controller' => PasswordController::class]
     Route::post('change', 'updatePassword')->middleware('auth:api');
 });
 
+
+Route::group(
+    [
+        'prefix' => 'auth/login',
+        'controller' => SocialController::class
+    ],
+    function () {
+        Route::get('{provider}', 'redirect');
+        Route::get('{provider}/callback', 'callback');
+        Route::post('{provider}/mobile', 'callbackMobile');
+    }
+);
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:api', 'controller' => UserController::class], function () {
     Route::post('register', 'register');

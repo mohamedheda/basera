@@ -27,7 +27,6 @@ class UserSubscriptionResource extends JsonResource
             'is_active' => $this->isActive(),
             'is_expired' => $this->isExpired(),
             'days_remaining' => $this->end_date ? max(0, now()->diffInDays($this->end_date, false)) : 0,
-            'package' => new SubscriptionPackageResource($this->whenLoaded('subscriptionPackage')),
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];

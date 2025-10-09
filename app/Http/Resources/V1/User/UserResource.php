@@ -31,12 +31,13 @@ class UserResource extends JsonResource
             'education_level' => $this->education_level,
             'annual_income' => $this->annual_income,
             'total_savings' => $this->total_savings,
-            'bank' => $this->bank->name,
+            'bank' => $this->bank?->name,
             'is_active' => $this->is_active,
             'otp_token' => $this->whenNotNull($this->otp?->token),
             'otp_verified' => $this->otp_verified,
             'token' => $this->when($this->withToken, $this->token()),
             'created_at' => $this->created_at?->toDateTimeString(),
+            'has_subscription' => $this->activeSubscription?->isActive(),
         ];
     }
 }
