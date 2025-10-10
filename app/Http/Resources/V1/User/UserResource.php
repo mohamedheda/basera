@@ -37,7 +37,7 @@ class UserResource extends JsonResource
             'otp_verified' => $this->otp_verified,
             'token' => $this->when($this->withToken, $this->token()),
             'created_at' => $this->created_at?->toDateTimeString(),
-            'has_subscription' => $this->activeSubscription?->isActive(),
+            'is_subscribed' => $this->activeSubscription?->isActive(),
         ];
     }
 }
