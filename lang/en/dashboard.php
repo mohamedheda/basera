@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Elryad' => 'Invest Hub',
+    'Elryad' => 'Basierah',
     'Dashboard' => 'Dashboard',
     'Login' => 'Login',
     'Logout' => 'Logout',
