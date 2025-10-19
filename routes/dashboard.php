@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\Bank\BankController;
 use App\Http\Controllers\Dashboard\SubscriptionPackage\SubscriptionPackageController;
 use App\Http\Controllers\Dashboard\UserSubscription\UserSubscriptionController;
 use App\Http\Controllers\Dashboard\InvestmentOpportunity\InvestmentOpportunityController;
+use App\Http\Controllers\Dashboard\Page\PageController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -57,6 +58,11 @@ Route::group([
         Route::resource('investment-opportunities', InvestmentOpportunityController::class);
         Route::post('investment-opportunities/{id}/toggle', [InvestmentOpportunityController::class, 'toggleStatus'])
             ->name('investment-opportunities.toggle');
+
+        // Pages Routes
+        Route::resource('pages', PageController::class);
+        Route::post('pages/{id}/toggle', [PageController::class, 'toggleStatus'])
+            ->name('pages.toggle');
     });
     Route::resource('settings', SettingController::class)->only('edit', 'update');
     Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');

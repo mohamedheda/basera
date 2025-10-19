@@ -70,7 +70,31 @@ return [
     'Cannot delete package with active subscriptions' => 'Cannot delete package with active subscriptions.',
     'Invalid status' => 'Invalid status.',
     'Something went wrong' => 'Something went wrong.',
-    
+
     'Investment opportunities fetched successfully' => 'Investment opportunities fetched successfully.',
     'Failed to fetch investment opportunities' => 'Failed to fetch investment opportunities.',
+
+    // Pages
+    'Page retrieved successfully' => 'Page retrieved successfully.',
+    'Failed to retrieve page' => 'Failed to retrieve page.',
+    'Page not found' => 'Page not found.',
+    'Pages retrieved successfully' => 'Pages retrieved successfully.',
+    'Failed to retrieve pages' => 'Failed to retrieve pages.',
+    'Slug' => 'Slug',
+    'Title (English)' => 'Title (English)',
+    'Title (Arabic)' => 'Title (Arabic)',
+    'Description (English)' => 'Description (English)',
+    'Description (Arabic)' => 'Description (Arabic)',
+
+    // In-App Purchases
+    'Packages retrieved successfully' => 'Packages retrieved successfully.',
+    'Failed to retrieve packages' => 'Failed to retrieve packages.',
+    'Missing required fields' => 'Missing required fields.',
+    'Package not found' => 'Package not found.',
+    'Product ID mismatch' => 'Product ID mismatch.',
+    'Purchase token already used' => 'Purchase token already used.',
+    'Invalid purchase' => 'Invalid purchase.',
+    'Subscription activated successfully' => 'Subscription activated successfully.',
+    'Failed to process purchase' => 'Failed to process purchase.',
+    'Purchase already processed' => 'Purchase already processed.',
 ];

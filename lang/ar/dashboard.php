@@ -468,4 +468,19 @@ return [
     'An error occurred' => 'حدث خطأ',
     'Auto Calculated' => 'يُحسب تلقائياً',
     'Will be calculated automatically' => 'سيتم الحساب تلقائياً',
+
+    // Pages
+    'Pages' => 'الصفحات',
+    'Page' => 'صفحة',
+    'Pages List' => 'قائمة الصفحات',
+    'Slug' => 'المعرف',
+    'Title (English)' => 'العنوان (إنجليزي)',
+    'Title (Arabic)' => 'العنوان (عربي)',
+    'Description (English)' => 'الوصف (إنجليزي)',
+    'Description (Arabic)' => 'الوصف (عربي)',
+    'Enter page slug (e.g., about-us, terms-and-conditions)' => 'أدخل معرف الصفحة (مثل: about-us, terms-and-conditions)',
+    'Enter page title in English' => 'أدخل عنوان الصفحة بالإنجليزية',
+    'Enter page title in Arabic' => 'أدخل عنوان الصفحة بالعربية',
+    'Enter page description in English' => 'أدخل وصف الصفحة بالإنجليزية',
+    'Enter page description in Arabic' => 'أدخل وصف الصفحة بالعربية',
 ];

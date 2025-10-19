@@ -18,6 +18,20 @@ class UserSubscription extends Model
         'status',
         'payment_method',
         'transaction_id',
+        'payment_platform',
+        'google_product_id',
+        'google_purchase_token',
+        'google_order_id',
+        'google_purchase_state',
+        'google_acknowledged',
+        'apple_product_id',
+        'apple_transaction_id',
+        'apple_original_transaction_id',
+        'apple_receipt',
+        'apple_purchase_state',
+        'receipt_data',
+        'auto_renew',
+        'last_verified_at',
     ];
 
     protected function casts(): array
@@ -26,6 +40,10 @@ class UserSubscription extends Model
             'start_date' => 'date',
             'end_date' => 'date',
             'amount_paid' => 'decimal:2',
+            'google_acknowledged' => 'boolean',
+            'receipt_data' => 'array',
+            'auto_renew' => 'boolean',
+            'last_verified_at' => 'datetime',
         ];
     }
 

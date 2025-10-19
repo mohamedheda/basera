@@ -9,7 +9,10 @@ use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
 use App\Http\Controllers\Api\V1\Risk\RiskAssessmentController;
 use App\Http\Controllers\Api\RegistrationQuestionController;
 use App\Http\Controllers\Api\V1\BankController;
+use App\Http\Controllers\Api\V1\PageController;
 use App\Http\Controllers\Api\V1\Social\SocialController;
+use App\Http\Controllers\Api\V1\IAP\IAPController;
+use App\Http\Controllers\Api\V1\IAP\WebhookController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,6 +21,10 @@ Route::group(['prefix' => 'registration-questions', 'controller' => Registration
 });
 Route::group(['prefix' => 'banks', 'controller' => BankController::class], function () {
     Route::get('/', 'index');
+});
+Route::group(['prefix' => 'pages', 'controller' => PageController::class], function () {
+    Route::get('/', 'index');
+    Route::get('{slug}', 'show');
 });
 Route::group(['prefix' => 'auth', 'controller' => AuthController::class], function () {
     Route::group(['prefix' => 'sign'], function () {
@@ -96,4 +103,21 @@ Route::group(['prefix' => 'risk', 'middleware' => 'auth:api', 'controller' => Ri
     Route::post('/', 'store');
     Route::get('questions', 'questions');
     Route::get('profile-explanation', 'profileExplanation');
+});
+
+
+// In-App Purchases Routes
+Route::group(['prefix' => 'iap', 'controller' => IAPController::class], function () {
+    Route::get('products', 'getProducts'); // Public - get available products
+    
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::post('google-verify', 'verifyGooglePlayPurchase');
+        Route::post('apple-verify', 'verifyAppleStorePurchase');
+    });
+});
+
+// Webhooks (No authentication - handled by platform signatures)
+Route::group(['prefix' => 'webhooks', 'controller' => WebhookController::class], function () {
+    Route::post('google-play', 'googlePlayWebhook');
+    Route::post('apple-store', 'appleStoreWebhook');
 });

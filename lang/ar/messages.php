@@ -70,7 +70,31 @@ return [
     'Cannot delete package with active subscriptions' => 'لا يمكن حذف الباقة التي تحتوي على اشتراكات نشطة.',
     'Invalid status' => 'حالة غير صالحة.',
     'Something went wrong' => 'حدث خطأ ما.',
-    
+
     'Investment opportunities fetched successfully' => 'تم جلب فرص الاستثمار بنجاح.',
     'Failed to fetch investment opportunities' => 'فشل في جلب فرص الاستثمار.',
+
+    // Pages
+    'Page retrieved successfully' => 'تم جلب الصفحة بنجاح.',
+    'Failed to retrieve page' => 'فشل في جلب الصفحة.',
+    'Page not found' => 'الصفحة غير موجودة.',
+    'Pages retrieved successfully' => 'تم جلب الصفحات بنجاح.',
+    'Failed to retrieve pages' => 'فشل في جلب الصفحات.',
+    'Slug' => 'المعرف',
+    'Title (English)' => 'العنوان (إنجليزي)',
+    'Title (Arabic)' => 'العنوان (عربي)',
+    'Description (English)' => 'الوصف (إنجليزي)',
+    'Description (Arabic)' => 'الوصف (عربي)',
+
+    // In-App Purchases
+    'Packages retrieved successfully' => 'تم جلب الباقات بنجاح.',
+    'Failed to retrieve packages' => 'فشل في جلب الباقات.',
+    'Missing required fields' => 'حقول مطلوبة مفقودة.',
+    'Package not found' => 'الباقة غير موجودة.',
+    'Product ID mismatch' => 'معرف المنتج غير متطابق.',
+    'Purchase token already used' => 'رمز الشراء مستخدم بالفعل.',
+    'Invalid purchase' => 'عملية شراء غير صالحة.',
+    'Subscription activated successfully' => 'تم تفعيل الاشتراك بنجاح.',
+    'Failed to process purchase' => 'فشل في معالجة عملية الشراء.',
+    'Purchase already processed' => 'تم معالجة عملية الشراء بالفعل.',
 ];

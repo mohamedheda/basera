@@ -19,6 +19,8 @@ class SubscriptionPackage extends Model
         'is_popular',
         'is_active',
         'features',
+        'google_product_id',
+        'apple_product_id',
     ];
 
     protected function casts(): array

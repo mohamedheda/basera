@@ -465,4 +465,19 @@ return [
     'An error occurred' => 'An error occurred',
     'Auto Calculated' => 'Auto Calculated',
     'Will be calculated automatically' => 'Will be calculated automatically',
+
+    // Pages
+    'Pages' => 'Pages',
+    'Page' => 'Page',
+    'Pages List' => 'Pages List',
+    'Slug' => 'Slug',
+    'Title (English)' => 'Title (English)',
+    'Title (Arabic)' => 'Title (Arabic)',
+    'Description (English)' => 'Description (English)',
+    'Description (Arabic)' => 'Description (Arabic)',
+    'Enter page slug (e.g., about-us, terms-and-conditions)' => 'Enter page slug (e.g., about-us, terms-and-conditions)',
+    'Enter page title in English' => 'Enter page title in English',
+    'Enter page title in Arabic' => 'Enter page title in Arabic',
+    'Enter page description in English' => 'Enter page description in English',
+    'Enter page description in Arabic' => 'Enter page description in Arabic',
 ];

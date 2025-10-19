@@ -14,6 +14,13 @@ return [
     |
     */
 
+    'mailgun' => [
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
+        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+        'scheme' => 'https',
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
@@ -24,20 +31,24 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'resend' => [
-        'key' => env('RESEND_KEY'),
+    /*
+    |--------------------------------------------------------------------------
+    | Google Play Services
+    |--------------------------------------------------------------------------
+    */
+    'google_play' => [
+        'package_name' => env('GOOGLE_PLAY_PACKAGE_NAME', 'com.investhub.app'),
+        'service_account_path' => env('GOOGLE_PLAY_SERVICE_ACCOUNT_PATH', 'app/google/service-account.json'),
     ],
 
-    'slack' => [
-        'notifications' => [
-            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
-        ],
-    ],
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_CALL_BACK_URL'),
+    /*
+    |--------------------------------------------------------------------------
+    | Apple Store Services
+    |--------------------------------------------------------------------------
+    */
+    'apple_store' => [
+        'shared_secret' => env('APPLE_STORE_SHARED_SECRET'),
+        'bundle_id' => env('APPLE_STORE_BUNDLE_ID', 'com.investhub.app'),
     ],
 
 ];
